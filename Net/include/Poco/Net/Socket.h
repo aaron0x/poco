@@ -28,6 +28,10 @@
 namespace Poco {
 namespace Net {
 
+namespace Impl {
+	class SocketIOWatcher;
+}
+
 
 class Net_API Socket
 	/// Socket is the common base class for
@@ -305,24 +309,9 @@ protected:
 		/// Returns the socket descriptor for this socket.
 
 private:
-
-#if defined(POCO_HAVE_FD_POLL)
-class FDCompare
-	/// Utility functor used to compare socket file descriptors.
-	/// Used in poll() member function.
-{
-public:
-	FDCompare(int fd): _fd(fd) { }
-	inline bool operator()(const Socket& socket) const
-	{ return socket.sockfd() == _fd; }
-
-private:
-	FDCompare();
-	int _fd;
-};
-#endif
-
 	SocketImpl* _pImpl;
+
+	friend class Impl::SocketIOWatcher;
 };
 
 

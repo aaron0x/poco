@@ -30,6 +30,10 @@
 namespace Poco {
 namespace Net {
 
+namespace Impl {
+	class SocketIOWatcher;
+}
+
 
 class Net_API SocketImpl: public Poco::RefCountedObject
 	/// This class encapsulates the Berkeley sockets API.
@@ -428,6 +432,7 @@ private:
 	
 	friend class Socket;
 	friend class SecureSocketImpl;
+	friend class Impl::SocketIOWatcher;
 };
 
 
